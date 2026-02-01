@@ -26,10 +26,6 @@ h1, h2, h3 {
 }
 
 /* Buttons */
-.btn-warning {
-  background-color: #d2691e;
-  border-color: #d2691e;
-}
 .btn-warning:hover {
   background-color: #b35a17;
   border-color: #b35a17;
@@ -211,5 +207,17 @@ html, body {
   }
 }
 
+@media (max-width: 576px) {
+  .card-body {
+    align-items: flex-start;
+  }
+
+  .card-body .btn {
+    height: 44px;
+    line-height: 44px;
+    padding: 0 16px;
+    flex: 0 0 auto;
+  }
+}
 
 
