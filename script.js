@@ -25,9 +25,12 @@ function updateCartCount() {
   const cartCount = document.getElementById("cartCount");
   if (!cartCount) return;
 
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+
   cartCount.textContent = totalItems;
 }
+
 
 /* Small visual feedback when adding to cart */
 function animateCartButton() {
