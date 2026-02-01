@@ -28,6 +28,9 @@
     method="POST"
     action="https://script.google.com/macros/s/AKfycbzmzf1iIjNvXrvUMH_u0V6XEI9ejCbij4OriRrdQyGApIbZKODe4wY68W0xRU-RjguAPQ/exec">
 
+    <input type="hidden" name="cartItems" id="cartItems">
+    <input type="hidden" name="totalAmount" id="totalAmount">
+
 
       <!-- 1) New or Existing -->
       <div class="mb-3">
@@ -131,78 +134,25 @@
 
 <!-- ================= SCRIPT ================= -->
 <script>
-/* -------- CART GUARD -------- */
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
 if (cart.length === 0) {
-  window.location.href = "cart.html";
+  alert("Your cart is empty.");
+  window.location.href = "index.html";
 }
 
-/* -------- ORDER SUMMARY -------- */
-const orderSummary = document.getElementById("orderSummary");
-const summaryTotal = document.getElementById("summaryTotal");
+const total = cart.reduce(
+  (sum, item) => sum + item.price * (item.quantity || 1),
+  0
+);
 
-let total = 0;
-cart.forEach(item => {
-  const qty = item.quantity || 1;
-  const itemTotal = item.price * qty;
-  total += itemTotal;
-
-  const li = document.createElement("li");
-  li.className = "list-group-item d-flex justify-content-between align-items-center";
-  li.innerHTML = `
-    <span>${item.name} x${qty}</span>
-    <span>₱${itemTotal}</span>
-  `;
-  orderSummary.appendChild(li);
-});
-summaryTotal.textContent = total;
-
-/* -------- DELIVERY DATE RULE -------- */
-const dateInput = document.querySelector("input[type='date']");
-const today = new Date().toISOString().split("T")[0];
-dateInput.min = today;
-
-/* -------- FORM SUBMISSION -------- */
-const form = document.getElementById("checkoutForm");
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const url = "https://script.google.com/macros/s/AKfycbx4Vk6I7F7_PaaTFI61hYyBE4YXY3l1dDoiiFm8-0syyYRw8-nAqCjaf2KC4ItNJIYtCg/exec";
-
-  const formData = new FormData(form);
-  formData.append("cartItems", JSON.stringify(cart));
-
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      body: formData
-    });
-
-    const text = await res.text();
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      data = { result: "error", message: text };
-    }
-
-    if (data.result === "success") {
-      localStorage.setItem("lastOrder", JSON.stringify({ cart, total }));
-      localStorage.removeItem("cart");
-      form.reset();
-      window.location.href = "confirmation.html";
-    } else {
-      alert("Failed to submit order: " + data.message);
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Failed to submit order. Please try again.");
-  }
-});
+document.getElementById("cartItems").value = JSON.stringify(cart);
+document.getElementById("totalAmount").value = total;
 </script>
+
 
 </body>
 </html>
+
 
 
