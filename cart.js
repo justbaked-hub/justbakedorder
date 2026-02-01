@@ -1,4 +1,4 @@
-let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 function renderCart() {
   const cartList = document.getElementById("cartList");
@@ -85,13 +85,13 @@ function changeQty(index, delta) {
     cart[index].quantity = 1;
   }
 
-  sessionStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 }
 
 function removeItem(index) {
   cart.splice(index, 1);
-  sessionStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 }
 

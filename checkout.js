@@ -1,6 +1,6 @@
 console.log("Checkout script loaded");
 
-const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const orderSummary = document.getElementById("orderSummary");
 const summaryTotal = document.getElementById("summaryTotal");
@@ -80,7 +80,6 @@ form.addEventListener("submit", async (e) => {
     }
 
     if (success) {
-      sessionStorage.removeItem("cart");
       form.reset();
       window.location.href = `confirmation.html?ref=${referenceId}`;
     } else {
