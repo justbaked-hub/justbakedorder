@@ -26,6 +26,10 @@ h1, h2, h3 {
 }
 
 /* Buttons */
+.btn-warning {
+  background-color: #d2691e;
+  border-color: #d2691e;
+}
 .btn-warning:hover {
   background-color: #b35a17;
   border-color: #b35a17;
@@ -197,27 +201,19 @@ html, body {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Mobile-friendly Add to Cart button */
+/* 🔒 FIX: Prevent Add to Cart button from stretching on mobile */
 @media (max-width: 576px) {
-  .btn-warning.w-100 {
-    height: 44px;              /* iOS/Android tap-friendly */
-    padding: 0 16px;           /* prevent vertical stretch */
-    line-height: 44px;         /* vertical centering */
-    align-self: center;
+  .card.h-100 {
+    height: auto !important;
   }
-}
 
-@media (max-width: 576px) {
   .card-body {
-    align-items: flex-start;
+    display: block !important;
   }
 
   .card-body .btn {
-    height: 44px;
-    line-height: 44px;
-    padding: 0 16px;
-    flex: 0 0 auto;
+    height: auto !important;
+    padding: 10px 16px !important;
   }
 }
-
 
