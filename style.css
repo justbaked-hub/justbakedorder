@@ -95,24 +95,48 @@ h1, h2, h3 {
 
 .confirmation-wrapper {
   min-height: 100vh;
+  background-color: #fff3e6;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
 }
 
-.confirmation-card {
+.confirmation-container {
+  max-width: 720px;
   width: 100%;
-  max-width: 420px;
-  background: #fff;
-  padding: 28px 24px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  text-align: center;
 }
 
-.confirmation-card-title {
-  text-align: center;
-  margin-bottom: 16px;
+.confirmation-card,
+.reference-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.confirmation-card {
+  margin-bottom: 20px;
+}
+
+.reference-card h3 {
+  word-break: break-word;
+}
+
+/* Mobile optimization */
+@media (max-width: 576px) {
+  .confirmation-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .reference-card h3 {
+    font-size: 1.3rem;
+  }
 }
 
 .phone-group {
