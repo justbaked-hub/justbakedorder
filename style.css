@@ -146,7 +146,14 @@ h1, h2, h3 {
   }
   
   .cart-toast {
-    bottom: 80px;
+    top: env(safe-area-inset-top, 16px);
+    bottom: auto;
+    transform: translateX(-50%) translateY(-20px);
+    border-radius: 14px;
+  }
+
+  .cart-toast.show {
+    transform: translateX(-50%) translateY(0);
   }
 }
 
@@ -185,12 +192,12 @@ html, body {
   font-size: 14px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   z-index: 9999;
 }
 
-/* visible */
 .cart-toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
