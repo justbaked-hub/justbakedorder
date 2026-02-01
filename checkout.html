@@ -3,43 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout</title>
-
+<title>Checkout - JustBakedMNL</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
 <div class="container py-4">
+  <h1 class="text-center mb-4">📦 Checkout - JustBakedMNL Cookies</h1>
 
-  <h1 class="text-center mb-4">📦 Checkout</h1>
-
-  <!-- ORDER SUMMARY -->
+  <!-- Order Summary -->
   <div class="form-section mb-4">
     <h3>🛒 Order Summary</h3>
-
     <ul class="list-group" id="orderSummary"></ul>
-
     <div class="text-end mt-2">
       <h5>Total: ₱<span id="summaryTotal">0</span></h5>
     </div>
   </div>
 
-  <!-- CHECKOUT FORM -->
+  <!-- Checkout Form -->
   <div class="form-section">
-    <form
-      id="checkoutForm"
+    <form id="checkoutForm"
       method="POST"
-      action="https://script.google.com/macros/s/AKfycbzc55-lPhDbHRMqI9uHkZMdDc-TCACKjnBdRXiINH1R3AN32PepIGu3TR6RDUNueDqd6g/exec"
-    >
+      action="YOUR_WEB_APP_URL">
 
-      <!-- HIDDEN CART DATA -->
+      <!-- REQUIRED hidden fields -->
       <input type="hidden" name="cartItems" id="cartItems">
       <input type="hidden" name="totalAmount" id="totalAmount">
 
-      <!-- 1) New or Existing -->
+      <!-- 1) Customer Type -->
       <div class="mb-3">
-        <label class="form-label fw-bold">Are you a new or an existing customer?</label>
+        <label class="fw-bold">Are you a new or an existing customer?</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="customerType" value="New" required>
           <label class="form-check-label">I am a new customer</label>
@@ -50,39 +44,39 @@
         </div>
       </div>
 
-      <!-- 2) Date -->
+      <!-- 2) Delivery Date -->
       <div class="mb-3">
-        <label class="form-label fw-bold">Date of Delivery</label>
+        <label class="fw-bold">Date of Delivery</label>
         <input type="date" name="deliveryDate" class="form-control" required>
       </div>
 
-      <!-- 3) Name -->
+      <!-- 3) Full Name -->
       <div class="mb-3">
-        <label class="form-label fw-bold">Your Name</label>
+        <label class="fw-bold">Your Name</label>
         <input type="text" name="fullName" class="form-control" required>
       </div>
 
       <!-- 4) Address -->
       <div class="mb-3">
-        <label class="form-label fw-bold">Address / Google Maps Address</label>
+        <label class="fw-bold">Address</label>
         <input type="text" name="address" class="form-control" required>
       </div>
 
       <!-- 5) Phone -->
       <div class="mb-3">
-        <label class="form-label fw-bold">Phone Number</label>
+        <label class="fw-bold">Phone Number</label>
         <input type="tel" name="phone" class="form-control" value="+63" required>
       </div>
 
       <!-- 6) Social -->
       <div class="mb-3">
-        <label class="form-label fw-bold">IG Username or Facebook</label>
+        <label class="fw-bold">IG or Facebook</label>
         <input type="text" name="social" class="form-control" required>
       </div>
 
       <!-- 7) Contact Method -->
       <div class="mb-3">
-        <label class="form-label fw-bold">Preferred Contact Method</label>
+        <label class="fw-bold">Preferred Contact Method</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="contactMethod" value="Phone" required>
           <label class="form-check-label">Phone</label>
@@ -99,7 +93,7 @@
 
       <!-- 8) Payment -->
       <div class="mb-3">
-        <label class="form-label fw-bold">Payment Method</label>
+        <label class="fw-bold">Payment Method</label>
         <select class="form-select" name="paymentMethod" required>
           <option value="">Select</option>
           <option>GCASH</option>
@@ -107,75 +101,59 @@
           <option>Maya</option>
           <option>Maribank</option>
         </select>
-        <small class="text-muted">
-          Shipping fee paid directly to the rider
-        </small>
       </div>
 
       <!-- 9) Notes -->
       <div class="mb-3">
-        <label class="form-label fw-bold">Special Notes</label>
-        <textarea class="form-control" name="notes" rows="3"></textarea>
+        <label class="fw-bold">Notes</label>
+        <textarea class="form-control" name="notes"></textarea>
       </div>
 
-      <!-- 10) Proof -->
-      <div class="mb-3">
-        <label class="form-label fw-bold">Proof of Payment (optional)</label>
-        <input type="file" class="form-control" name="file">
-      </div>
-
-      <!-- 11) Privacy -->
+      <!-- 10) Privacy -->
       <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" name="privacy" required>
+        <input type="checkbox" class="form-check-input" required>
         <label class="form-check-label">
           I agree to the data privacy policy
         </label>
       </div>
 
-      <button type="submit" class="btn btn-primary w-100">
+      <button type="submit" class="btn btn-warning w-100">
         Place Order
       </button>
-
     </form>
   </div>
 </div>
 
-<!-- SCRIPT -->
 <script>
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
 const orderSummary = document.getElementById("orderSummary");
 const summaryTotal = document.getElementById("summaryTotal");
 
+/* Block empty cart */
 if (cart.length === 0) {
   alert("Your cart is empty.");
   window.location.href = "index.html";
 }
 
+/* Render summary */
 let total = 0;
-orderSummary.innerHTML = "";
+const cartText = cart.map(item => {
+  const qty = item.quantity || 1;
+  total += item.price * qty;
+  return `${item.name} - ₱${item.price} x${qty}`;
+}).join(", ");
 
 cart.forEach(item => {
   const qty = item.quantity || 1;
-  const itemTotal = item.price * qty;
-  total += itemTotal;
-
   const li = document.createElement("li");
   li.className = "list-group-item d-flex justify-content-between";
-  li.innerHTML = `
-    <span>${item.name} × ${qty}</span>
-    <span>₱${itemTotal}</span>
-  `;
+  li.innerHTML = `<span>${item.name} x${qty}</span><span>₱${item.price * qty}</span>`;
   orderSummary.appendChild(li);
 });
 
 summaryTotal.textContent = total;
 
-// sync hidden inputs
-const cartText = cart
-  .map(item => `${item.name} - ₱${item.price} x${item.quantity || 1}`)
-  .join(", ");
-
+/* Populate hidden fields */
 document.getElementById("cartItems").value = cartText;
 document.getElementById("totalAmount").value = total;
 </script>
