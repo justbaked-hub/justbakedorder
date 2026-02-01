@@ -12,19 +12,17 @@ function addToCart(name, price, img) {
 
   if (existingItem) {
     existingItem.quantity += 1;
+    showCartToast("Quantity updated 🧁");
   } else {
-    cart.push({
-      name,
-      price,
-      img,
-      quantity: 1
-    });
+    cart.push({ name, price, img, quantity: 1 });
+    showCartToast("Added to cart 🛒");
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
   animateCartButton();
 }
+
 
 /* Update cart badge */
 function updateCartCount() {
@@ -46,6 +44,19 @@ function animateCartButton() {
   btn.classList.add("btn-pulse");
   setTimeout(() => btn.classList.remove("btn-pulse"), 300);
 }
+
+function showCartToast(message = "Added to cart 🛒") {
+  const toast = document.getElementById("cartToast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 700);
+}
+
 
 /* Init */
 updateCartCount();
