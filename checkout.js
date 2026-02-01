@@ -1,19 +1,29 @@
 console.log("Checkout script loaded");
 
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
+/* ===============================
+   LOAD CART
+================================ */
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const orderSummary = document.getElementById("orderSummary");
 const summaryTotal = document.getElementById("summaryTotal");
 const form = document.getElementById("checkoutForm");
+const phoneLocal = document.getElementById("phoneLocal");
+const phoneHidden = document.getElementById("phone");
 
-/* 🚫 Block checkout if cart is empty */
-if (cart.length === 0) {
+/* ===============================
+   BLOCK EMPTY CART
+================================ */
+if (!cart.length) {
   alert("Your cart is empty.");
   window.location.href = "index.html";
 }
 
-/* 🛒 Render order summary */
+/* ===============================
+   RENDER ORDER SUMMARY
+================================ */
 let total = 0;
+orderSummary.innerHTML = "";
 
 cart.forEach(item => {
   const qty = item.quantity || 1;
@@ -21,7 +31,7 @@ cart.forEach(item => {
   total += itemTotal;
 
   const li = document.createElement("li");
-  li.className = "list-group-item d-flex justify-content-between align-items-center";
+  li.className = "list-group-item d-flex justify-content-between";
   li.innerHTML = `
     <span>${item.name} x${qty}</span>
     <span>₱${itemTotal}</span>
@@ -31,63 +41,75 @@ cart.forEach(item => {
 
 summaryTotal.textContent = total;
 
-/* 🔢 Generate Reference ID */
+/* ===============================
+   GENERATE REFERENCE ID
+================================ */
 function generateReferenceId() {
   const now = new Date();
-  const datePart = now.toISOString().slice(0,10).replace(/-/g,"");
-  const timePart = now.toTimeString().slice(0,8).replace(/:/g,"");
-  const randomPart = Math.floor(1000 + Math.random() * 9000);
-  return `JB-${datePart}-${timePart}-${randomPart}`;
+  const pad = n => n.toString().padStart(2, "0");
+
+  return (
+    "JB-" +
+    now.getFullYear() +
+    pad(now.getMonth() + 1) +
+    pad(now.getDate()) +
+    "-" +
+    pad(now.getHours()) +
+    pad(now.getMinutes()) +
+    pad(now.getSeconds()) +
+    "-" +
+    Math.floor(100 + Math.random() * 900)
+  );
 }
 
-/* 📤 Submit checkout form */
+/* ===============================
+   SUBMIT FORM
+================================ */
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log("SUBMIT TRIGGERED");
 
   /* 📱 Phone validation (10 digits only) */
-  const phoneLocal = document.getElementById("phoneLocal");
   if (!/^\d{10}$/.test(phoneLocal.value)) {
     alert("Phone number must be exactly 10 digits.");
     phoneLocal.focus();
     return;
   }
 
+  /* Combine +63 with phone */
+  phoneHidden.value = "+63" + phoneLocal.value;
+
   const referenceId = generateReferenceId();
 
   const formData = new FormData(form);
-  formData.append("cartItems", cart.map(i => `${i.name} - ₱${i.price}`).join(", "));
-  formData.append("totalAmount", total);
-  formData.append("referenceId", referenceId);
+
+  /* Cart in TEXT form */
+  formData.set(
+    "cartItems",
+    cart
+      .map(item => `${item.name} - ₱${item.price} x${item.quantity || 1}`)
+      .join(", ")
+  );
+
+  formData.set("totalAmount", total);
+  formData.set("referenceId", referenceId);
 
   try {
-    console.log("SENDING REQUEST TO WEB APP");
     const res = await fetch(form.action, {
       method: "POST",
       body: formData
     });
 
-    const text = await res.text();
-    console.log("RAW RESPONSE:", text);
+    if (!res.ok) throw new Error("Submission failed");
 
-    /* 🧠 Apps Script often returns plain text */
-    let success = true;
-    try {
-      const json = JSON.parse(text);
-      success = json.result === "success";
-    } catch {
-      success = true;
-    }
+    /* ✅ CLEAR CART ONLY AFTER SUCCESS */
+    localStorage.removeItem("cart");
+    cart = [];
 
-    if (success) {
-      form.reset();
-      window.location.href = `confirmation.html?ref=${referenceId}`;
-    } else {
-      alert("Failed to submit order. Please try again.");
-    }
+    /* Redirect to confirmation */
+    window.location.href = `confirmation.html?ref=${referenceId}`;
 
   } catch (err) {
-    console.error("FETCH ERROR:", err);
-    alert("Failed to submit order. Please check your internet connection.");
+    console.error("Checkout error:", err);
+    alert("Failed to submit order. Please try again.");
   }
 });

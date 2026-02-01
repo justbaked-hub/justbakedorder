@@ -137,47 +137,7 @@
   </div>
 </div>
 
-<script>
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
-const orderSummary = document.getElementById("orderSummary");
-const summaryTotal = document.getElementById("summaryTotal");
-
-/* Block empty cart */
-if (cart.length === 0) {
-  alert("Your cart is empty.");
-  window.location.href = "index.html";
-}
-
-/* Render summary */
-let total = 0;
-const cartText = cart.map(item => {
-  const qty = item.quantity || 1;
-  total += item.price * qty;
-  return `${item.name} - ₱${item.price} x${qty}`;
-}).join(", ");
-
-cart.forEach(item => {
-  const qty = item.quantity || 1;
-  const li = document.createElement("li");
-  li.className = "list-group-item d-flex justify-content-between";
-  li.innerHTML = `<span>${item.name} x${qty}</span><span>₱${item.price * qty}</span>`;
-  orderSummary.appendChild(li);
-});
-
-summaryTotal.textContent = total;
-
-/* Populate hidden fields */
-document.getElementById("cartItems").value = cartText;
-document.getElementById("totalAmount").value = total;
-
-const form = document.getElementById("checkoutForm");
-const phoneLocal = document.getElementById("phoneLocal");
-const phoneHidden = document.getElementById("phone");
-
-    form.addEventListener("submit", () => {
-      phoneHidden.value = "+63" + phoneLocal.value;
-    });
-</script>
+<script src="checkout.js"></script>
 
 </body>
 </html>
