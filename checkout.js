@@ -41,6 +41,7 @@ document.getElementById("totalAmount").value = total;
 /* 📤 Final submit handling (NORMAL form submit) */
 form.addEventListener("submit", (event) => {
   console.log("Form submitting normally with file upload");
+  event.preventDefault();
 
   const phoneLocal = document.getElementById("phoneLocal");
   const phoneHidden = document.getElementById("phone");
@@ -54,7 +55,8 @@ form.addEventListener("submit", (event) => {
   }
 
   phoneHidden.value = "+63" + phoneLocal.value;
-
+	
+  form.submit();
   /* 🧹 Clear cart before Apps Script redirect */
   localStorage.removeItem("cart");
 
