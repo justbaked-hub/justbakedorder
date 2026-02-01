@@ -38,11 +38,9 @@ summaryTotal.textContent = total;
 document.getElementById("cartItems").value = cartText.join(", ");
 document.getElementById("totalAmount").value = total;
 
-/* 📤 Final submit handling */
-form.addEventListener("submit", async (event) => {
-  event.preventDefault(); // REQUIRED for file upload
-
-  console.log("Form submitting with file upload");
+/* 📤 Final submit handling (NORMAL form submit) */
+form.addEventListener("submit", (event) => {
+  console.log("Form submitting normally with file upload");
 
   const phoneLocal = document.getElementById("phoneLocal");
   const phoneHidden = document.getElementById("phone");
@@ -51,33 +49,14 @@ form.addEventListener("submit", async (event) => {
   if (!/^\d{10}$/.test(phoneLocal.value)) {
     alert("Phone number must be exactly 10 digits.");
     phoneLocal.focus();
+    event.preventDefault(); // block ONLY on validation error
     return;
   }
 
   phoneHidden.value = "+63" + phoneLocal.value;
 
-  /* 📦 Submit using FormData (keeps all fields + file) */
-  const formData = new FormData(form);
+  /* 🧹 Clear cart before Apps Script redirect */
+  localStorage.removeItem("cart");
 
-  try {
-    const res = await fetch(form.action, {
-      method: "POST",
-      body: formData
-    });
-
-    const html = await res.text();
-
-    /* 🧹 Clear cart ONLY after successful submit */
-    localStorage.removeItem("cart");
-
-    /* 🔁 Let Apps Script handle redirect */
-    document.open();
-    document.write(html);
-    document.close();
-
-  } catch (err) {
-    console.error(err);
-    alert("Failed to submit order. Please try again.");
-  }
+  // ✅ Let browser submit the form naturally
 });
-
