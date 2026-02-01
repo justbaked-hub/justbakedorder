@@ -70,17 +70,19 @@
 			<span class="input-group-text">+63</span>
 			<input
 			  type="tel"
-			  class="form-control"
 			  id="phoneLocal"
+			  class="form-control"
 			  placeholder="9XXXXXXXXX"
 			  required
 			  pattern="[0-9]{10}"
+			  inputmode="numeric"
 			>
 		  </div>
 
-		  <!-- hidden field that gets submitted -->
+		  <!-- THIS is what Google Sheets reads -->
 		  <input type="hidden" name="phone" id="phone">
 		</div>
+
 
 
       <!-- 6) Social -->
@@ -171,6 +173,14 @@ summaryTotal.textContent = total;
 /* Populate hidden fields */
 document.getElementById("cartItems").value = cartText;
 document.getElementById("totalAmount").value = total;
+
+const form = document.getElementById("checkoutForm");
+const phoneLocal = document.getElementById("phoneLocal");
+const phoneHidden = document.getElementById("phone");
+
+    form.addEventListener("submit", () => {
+      phoneHidden.value = "+63" + phoneLocal.value;
+    });
 </script>
 
 </body>
