@@ -14,24 +14,6 @@ if (cart.length === 0) {
   window.location.href = "index.html";
 }
 
-proofFileInput.addEventListener("change", () => {
-  const file = proofFileInput.files[0];
-  if (!file) return;
-
-  if (!file.type.startsWith("image/")) {
-    alert("Please upload an image file.");
-    proofFileInput.value = "";
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    proofBase64Input.value = reader.result;
-  };
-  reader.readAsDataURL(file);
-});
-
-
 /* 🛒 Render order summary */
 let total = 0;
 let cartText = [];
@@ -58,6 +40,23 @@ summaryTotal.textContent = total;
 document.getElementById("cartItems").value = cartText.join(", ");
 document.getElementById("totalAmount").value = total;
 
+proofFileInput.addEventListener("change", () => {
+  const file = proofFileInput.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please upload an image file.");
+    proofFileInput.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    proofBase64Input.value = reader.result;
+  };
+  reader.readAsDataURL(file);
+});
+
 /* 📤 Final submit handling (NORMAL form submit) */
 form.addEventListener("submit", (event) => {
   console.log("Form submitting normally with file upload");
@@ -77,11 +76,16 @@ form.addEventListener("submit", (event) => {
   
   if (!proofBase64Input.value) {
   alert("Please upload proof of payment.");
+  event.preventDefault();
   return;
 }
+
 	
   /* 🧹 Clear cart before Apps Script redirect */
-  localStorage.removeItem("cart");
+  setTimeout(() => {
+	localStorage.removeItem("cart");
+  }, 500);
+
 
   // ✅ Let browser submit the form naturally
 });
