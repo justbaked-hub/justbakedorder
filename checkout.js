@@ -84,7 +84,6 @@ form.addEventListener("submit", (event) => {
 	
   /* 🧹 Clear cart before Apps Script redirect */
   localStorage.removeItem("cart");
-  form.submit();
 
   // ✅ Let browser submit the form naturally
 });
