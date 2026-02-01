@@ -39,8 +39,10 @@ document.getElementById("cartItems").value = cartText.join(", ");
 document.getElementById("totalAmount").value = total;
 
 /* 📤 Final submit handling */
-form.addEventListener("submit", () => {
-  console.log("Form submitting normally");
+form.addEventListener("submit", async (event) => {
+  event.preventDefault(); // REQUIRED for file upload
+
+  console.log("Form submitting with file upload");
 
   const phoneLocal = document.getElementById("phoneLocal");
   const phoneHidden = document.getElementById("phone");
@@ -49,12 +51,33 @@ form.addEventListener("submit", () => {
   if (!/^\d{10}$/.test(phoneLocal.value)) {
     alert("Phone number must be exactly 10 digits.");
     phoneLocal.focus();
-    event.preventDefault();
     return;
   }
 
   phoneHidden.value = "+63" + phoneLocal.value;
 
-  /* 🧹 Clear cart AFTER submit (Apps Script will redirect) */
-  localStorage.removeItem("cart");
+  /* 📦 Submit using FormData (keeps all fields + file) */
+  const formData = new FormData(form);
+
+  try {
+    const res = await fetch(form.action, {
+      method: "POST",
+      body: formData
+    });
+
+    const html = await res.text();
+
+    /* 🧹 Clear cart ONLY after successful submit */
+    localStorage.removeItem("cart");
+
+    /* 🔁 Let Apps Script handle redirect */
+    document.open();
+    document.write(html);
+    document.close();
+
+  } catch (err) {
+    console.error(err);
+    alert("Failed to submit order. Please try again.");
+  }
 });
+

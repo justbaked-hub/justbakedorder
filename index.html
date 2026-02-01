@@ -26,52 +26,8 @@
       </a>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-
-      <!-- Product 1 -->
-      <div class="col">
-        <div class="card h-100 product-card">
-          <img
-            src="pictures/ChocolateChipCookie.jpeg"
-            class="card-img-top product-img"
-            alt="Chocolate Chip Cookie"
-          />
-          <div class="card-body text-center">
-            <h5 class="card-title">Chocolate Chip Cookie</h5>
-            <p class="card-text fw-bold">₱150</p>
-            <button
-              class="btn btn-warning w-100 add-btn"
-              onclick="addToCart('Chocolate Chip Cookie', 150, 'pictures/ChocolateChipCookie.jpeg')"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 2 -->
-      <div class="col">
-        <div class="card h-100 product-card">
-          <img
-            src="pictures/ChocolateChipCookieNibblers.jpeg"
-            class="card-img-top product-img"
-            alt="Chocolate Chip Cookie Nibblers"
-          />
-          <div class="card-body text-center">
-            <h5 class="card-title">Chocolate Chip Cookie Nibblers</h5>
-            <p class="card-text fw-bold">₱199</p>
-            <button
-              class="btn btn-warning w-100 add-btn"
-              onclick="addToCart('Chocolate Chip Cookie Nibblers', 199, 'pictures/ChocolateChipCookieNibblers.jpeg')"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      </div>
-
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="productGrid">
     </div>
-  </div>
   
 	<div id="cartToast" class="cart-toast">
 		Added to cart 🛒
