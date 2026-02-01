@@ -24,7 +24,7 @@
 
   <!-- Checkout Form -->
   <div class="form-section">
-    <form
+    <form id="checkoutForm"
       method="POST"
       action="https://script.google.com/macros/s/AKfycbyHGjFLfmdc6oMkyeghlgg0cXoICsRGhjrWZNYJHHnzS3zKtkJ4SFjCuOi8fp50TCP9fw/exec"
 	  enctype="multipart/form-data">
@@ -123,12 +123,15 @@
 	  </label>
 	  <input
 		type="file"
-		name="proof"
+		id="prooffile"
 		class="form-control"
 		accept="image/*,.pdf"
 		required
-	  />
+	  />	  
+	  <input type="hidden" name="proofBase64" id="proofBase64">
+
 	</div>
+	
 
       <!-- 10) Notes -->
       <div class="mb-3">

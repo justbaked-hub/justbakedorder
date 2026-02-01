@@ -1,5 +1,7 @@
 console.log("Checkout script loaded");
 
+const proofFileInput = document.getElementById("proofFile");
+const proofBase64Input = document.getElementById("proofBase64");
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const orderSummary = document.getElementById("orderSummary");
@@ -11,6 +13,24 @@ if (cart.length === 0) {
   alert("Your cart is empty.");
   window.location.href = "index.html";
 }
+
+proofFileInput.addEventListener("change", () => {
+  const file = proofFileInput.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please upload an image file.");
+    proofFileInput.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    proofBase64Input.value = reader.result;
+  };
+  reader.readAsDataURL(file);
+});
+
 
 /* 🛒 Render order summary */
 let total = 0;
@@ -55,10 +75,16 @@ form.addEventListener("submit", (event) => {
   }
 
   phoneHidden.value = "+63" + phoneLocal.value;
+  
+  if (!proofBase64Input.value) {
+  alert("Please upload proof of payment.");
+  return;
+}
+
 	
-  form.submit();
   /* 🧹 Clear cart before Apps Script redirect */
   localStorage.removeItem("cart");
+  form.submit();
 
   // ✅ Let browser submit the form naturally
 });
