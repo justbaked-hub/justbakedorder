@@ -12,7 +12,7 @@ const paymentQR = document.getElementById("paymentQR");
 const paymentQRImg = document.getElementById("paymentQRImg");
 
 const paymentQRMap = {
-  GCASH: "pictures/gcash-qr.jpg",
+  Gcash: "pictures/gcash-qr.jpg",
   BPI: "pictures/bpi-qr.png",
   Maya: "pictures/maya-qr.jpg",
   Maribank: "pictures/maribank-qr.png"
