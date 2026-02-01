@@ -201,3 +201,18 @@ html, body {
   transform: translateX(-50%) translateY(0);
 }
 
+/* Fix Add to Cart button stretching vertically on mobile */
+@media (max-width: 576px) {
+  .btn-warning {
+    height: auto !important;
+    align-self: center;
+    padding: 10px 16px;
+    line-height: 1.2;
+  }
+  
+  .btn-warning.w-100 {
+    width: auto;
+  }
+}
+
+
