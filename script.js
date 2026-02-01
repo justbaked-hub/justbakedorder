@@ -40,3 +40,7 @@ function animateCartButton() {
 
 /* Init */
 updateCartCount();
+
+window.addEventListener("beforeunload", () => {
+  localStorage.removeItem("cart");
+});
