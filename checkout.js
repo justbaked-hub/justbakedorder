@@ -61,7 +61,6 @@ document.getElementById("totalAmount").value = total;
 /* 📤 Final submit handling (NORMAL form submit) */
 form.addEventListener("submit", (event) => {
   console.log("Form submitting normally with file upload");
-  event.preventDefault();
 
   const phoneLocal = document.getElementById("phoneLocal");
   const phoneHidden = document.getElementById("phone");
