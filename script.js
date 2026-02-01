@@ -57,6 +57,16 @@ function showCartToast(message = "Added to cart 🛒") {
   }, 700);
 }
 
+window.addEventListener("pageshow", function (event) {
+  if (event.persisted) {
+    document.body.style.display = "none";
+    requestAnimationFrame(() => {
+      document.body.style.display = "";
+    });
+  }
+});
+
+
 
 /* Init */
 updateCartCount();
