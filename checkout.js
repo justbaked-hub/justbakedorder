@@ -60,7 +60,7 @@ document.getElementById("totalAmount").value = total;
 
 /* 📤 Final submit handling (NORMAL form submit) */
 form.addEventListener("submit", (event) => {
-  console.log("Form submitting normally");
+  console.log("Form submitting normally with file upload");
 
   const phoneLocal = document.getElementById("phoneLocal");
   const phoneHidden = document.getElementById("phone");
@@ -69,18 +69,19 @@ form.addEventListener("submit", (event) => {
   if (!/^\d{10}$/.test(phoneLocal.value)) {
     alert("Phone number must be exactly 10 digits.");
     phoneLocal.focus();
-    event.preventDefault();
+    event.preventDefault(); // block ONLY on validation error
     return;
   }
 
-  /* ✅ FORCE values right before submit */
   phoneHidden.value = "+63" + phoneLocal.value;
-  document.getElementById("cartItems").value = cartText.join(", ");
-  document.getElementById("totalAmount").value = total;
-
-  /* 🧹 Clear cart AFTER browser takes the values */
-  setTimeout(() => {
-    localStorage.removeItem("cart");
-  }, 100);
+  
+  if (!proofBase64Input.value) {
+  alert("Please upload proof of payment.");
+  return;
+}
+	
+  /* 🧹 Clear cart before Apps Script redirect */
+	  setTimeout(() => {
+		localStorage.removeItem("cart");
+	  }, 100);
 });
-
