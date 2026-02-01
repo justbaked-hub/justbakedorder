@@ -36,8 +36,6 @@ form.addEventListener("submit", async (e) => {
   console.log("SUBMIT TRIGGERED");
   e.preventDefault();
 
-  const url = "https://script.google.com/macros/s/AKfycbzc55-lPhDbHRMqI9uHkZMdDc-TCACKjnBdRXiINH1R3AN32PepIGu3TR6RDUNueDqd6g/exec";
-
   const formData = new FormData(form);
   formData.append("cartItems", JSON.stringify(cart));
   formData.append("totalAmount", total);
