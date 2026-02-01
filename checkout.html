@@ -64,9 +64,24 @@
 
       <!-- 5) Phone -->
       <div class="mb-3">
-        <label class="fw-bold">Phone Number</label>
-        <input type="tel" name="phone" class="form-control" value="+63" required>
-      </div>
+		  <label class="form-label fw-bold">Phone Number</label>
+
+		  <div class="input-group">
+			<span class="input-group-text">+63</span>
+			<input
+			  type="tel"
+			  class="form-control"
+			  id="phoneLocal"
+			  placeholder="9XXXXXXXXX"
+			  required
+			  pattern="[0-9]{10}"
+			>
+		  </div>
+
+		  <!-- hidden field that gets submitted -->
+		  <input type="hidden" name="phone" id="phone">
+		</div>
+
 
       <!-- 6) Social -->
       <div class="mb-3">
@@ -113,7 +128,7 @@
       <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" required>
         <label class="form-check-label">
-          I agree to the data privacy policy
+          I agree that my date will be used by Justbakedmnl Cookies for order monitoring, customer-vendor communication and delivery details.
         </label>
       </div>
 
