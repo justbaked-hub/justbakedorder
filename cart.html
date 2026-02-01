@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart - JustBakedMNL</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container py-4">
+  <h1 class="text-center mb-4">🛒 Your Cart</h1>
+
+  <!-- Cart Items -->
+  <ul class="list-group mb-3" id="cartList"></ul>
+
+  <!-- Total -->
+  <div class="text-end mb-3">
+    <h4>Total: ₱<span id="total">0</span></h4>
+  </div>
+
+  <!-- Cart Action Buttons (Injected by JS) -->
+  <div class="text-center mt-4" id="cartActions"></div>
+</div>
+
+<script src="cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<form id="testForm">
+  <input name="fullName" value="Test">
+  <button type="submit">Send</button>
+</form>
+<script>
+document.getElementById("testForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const res = await fetch("https://script.google.com/macros/s/AKfycbzmzf1iIjNvXrvUMH_u0V6XEI9ejCbij4OriRrdQyGApIbZKODe4wY68W0xRU-RjguAPQ/exec", {
+    method: "POST",
+    body: new FormData(e.target)
+  });
+  const data = await res.json();
+  console.log(data);
+});
+</script>

@@ -1,0 +1,94 @@
+body {
+  background-color: #fff3e6;
+  color: #5a3e2b;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Cards */
+.card {
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.product-img {
+  height: 240px;
+  object-fit: cover;
+}
+
+/* Buttons */
+.btn-warning {
+  background-color: #d2691e;
+  border-color: #d2691e;
+}
+.btn-warning:hover {
+  background-color: #b35a17;
+  border-color: #b35a17;
+}
+
+.submit-btn,
+.btn-primary {
+  background: #d2691e;
+  border: none;
+}
+.submit-btn:hover,
+.btn-primary:hover {
+  background: #b35a17;
+}
+
+/* Forms */
+.form-section {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Cart Items */
+.list-group-item {
+  border-radius: 14px;
+  margin-bottom: 12px;
+  animation: fadeUp 0.3s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Quantity */
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.qty-number {
+  min-width: 24px;
+  text-align: center;
+  font-weight: bold;
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+
+/* Cart count */
+.cart-bounce {
+  animation: bounce 0.3s ease;
+}
+@keyframes bounce {
+  50% { transform: scale(1.4); }
+}
