@@ -83,9 +83,9 @@
     </div>
 
     <!-- Button -->
-    <a href="index.html" class="btn btn-warning mt-4 px-4">
-      Continue Shopping
-    </a>
+    <a href="index.html" class="btn btn-warning mt-4" onclick="resetViewport()">
+		Continue Shopping
+	</a>
 
   </div>
 </div>
@@ -97,6 +97,11 @@
   if (ref) {
     document.getElementById("refId").textContent = ref;
   }
+  
+  function resetViewport() {
+  document.querySelector('meta[name=viewport]')
+    .setAttribute('content', 'width=device-width, initial-scale=1');
+}
 </script>
 
 </body>
