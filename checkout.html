@@ -172,7 +172,11 @@ cart.forEach(item => {
 summaryTotal.textContent = total;
 
 // sync hidden inputs
-document.getElementById("cartItems").value = JSON.stringify(cart);
+const cartText = cart
+  .map(item => `${item.name} - ₱${item.price} x${item.quantity || 1}`)
+  .join(", ");
+
+document.getElementById("cartItems").value = cartText;
 document.getElementById("totalAmount").value = total;
 </script>
 
