@@ -144,6 +144,10 @@ h1, h2, h3 {
   .reference-card h3 {
     font-size: 1.3rem;
   }
+  
+  .cart-toast {
+    bottom: 80px;
+  }
 }
 
 .phone-group {
@@ -171,8 +175,8 @@ html, body {
 
 .cart-toast {
   position: fixed;
-  bottom: 20px;
   left: 50%;
+  bottom: env(safe-area-inset-bottom, 20px);
   transform: translateX(-50%) translateY(20px);
   background: #6b3f27;
   color: #fff;
@@ -185,7 +189,7 @@ html, body {
   z-index: 9999;
 }
 
-/* Visible state */
+/* visible */
 .cart-toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
