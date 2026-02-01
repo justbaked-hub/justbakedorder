@@ -1,4 +1,4 @@
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
 /* Add to cart with quantity handling */
 function addToCart(name, price, img) {
@@ -15,7 +15,7 @@ function addToCart(name, price, img) {
     });
   }
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+  sessionStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
   animateCartButton();
 }
@@ -42,5 +42,5 @@ function animateCartButton() {
 updateCartCount();
 
 window.addEventListener("beforeunload", () => {
-  localStorage.removeItem("cart");
+  sessionStorage.removeItem("cart");
 });
