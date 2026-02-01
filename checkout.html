@@ -25,7 +25,7 @@
   <div class="form-section">
     <form id="checkoutForm"
       method="POST"
-      action="https://script.google.com/macros/s/AKfycbzmzf1iIjNvXrvUMH_u0V6XEI9ejCbij4OriRrdQyGApIbZKODe4wY68W0xRU-RjguAPQ/exec">
+      action="https://script.google.com/macros/s/AKfycbzc55-lPhDbHRMqI9uHkZMdDc-TCACKjnBdRXiINH1R3AN32PepIGu3TR6RDUNueDqd6g/exec">
 
       <!-- REQUIRED hidden fields -->
       <input type="hidden" name="cartItems" id="cartItems">
@@ -63,37 +63,32 @@
       </div>
 
       <!-- 5) Phone -->
-      <div class="mb-3">
-		  <label class="form-label fw-bold">Phone Number</label>
-
-		  <div class="input-group">
-			<span class="input-group-text">+63</span>
-			<input
-			  type="tel"
-			  id="phoneLocal"
-			  class="form-control"
-			  placeholder="9XXXXXXXXX"
-			  required
-			  pattern="[0-9]{10}"
-			  inputmode="numeric"
-			>
-		  </div>
-
-		  <!-- THIS is what Google Sheets reads -->
-		  <input type="hidden" name="phone" id="phone">
+		<div class="phone-group">
+		  <span class="country-code">+63</span>
+		  <input
+			type="tel"
+			id="phoneLocal"
+			maxlength="10"
+			pattern="[0-9]{10}"
+			placeholder="9XXXXXXXXX"
+			required
+		  >
 		</div>
+
+		<input type="hidden" name="phone" id="phone">
+
 
 
 
       <!-- 6) Social -->
       <div class="mb-3">
-        <label class="fw-bold">IG or Facebook</label>
+        <label class="fw-bold">IG or Facebook Username</label>
         <input type="text" name="social" class="form-control" required>
       </div>
 
       <!-- 7) Contact Method -->
       <div class="mb-3">
-        <label class="fw-bold">Preferred Contact Method</label>
+        <label class="fw-bold">Preferred Contact Method (for order communication)</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="contactMethod" value="Phone" required>
           <label class="form-check-label">Phone</label>

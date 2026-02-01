@@ -6,13 +6,13 @@ const orderSummary = document.getElementById("orderSummary");
 const summaryTotal = document.getElementById("summaryTotal");
 const form = document.getElementById("checkoutForm");
 
-/* Block checkout if cart is empty */
+/* 🚫 Block checkout if cart is empty */
 if (cart.length === 0) {
   alert("Your cart is empty.");
   window.location.href = "index.html";
 }
 
-/* Render order summary */
+/* 🛒 Render order summary */
 let total = 0;
 
 cart.forEach(item => {
@@ -31,43 +31,64 @@ cart.forEach(item => {
 
 summaryTotal.textContent = total;
 
-/* Submit checkout form */
+/* 🔢 Generate Reference ID */
+function generateReferenceId() {
+  const now = new Date();
+  const datePart = now.toISOString().slice(0,10).replace(/-/g,"");
+  const timePart = now.toTimeString().slice(0,8).replace(/:/g,"");
+  const randomPart = Math.floor(1000 + Math.random() * 9000);
+  return `JB-${datePart}-${timePart}-${randomPart}`;
+}
+
+/* 📤 Submit checkout form */
 form.addEventListener("submit", async (e) => {
-  console.log("SUBMIT TRIGGERED");
   e.preventDefault();
+  console.log("SUBMIT TRIGGERED");
+
+  /* 📱 Phone validation (10 digits only) */
+  const phoneLocal = document.getElementById("phoneLocal");
+  if (!/^\d{10}$/.test(phoneLocal.value)) {
+    alert("Phone number must be exactly 10 digits.");
+    phoneLocal.focus();
+    return;
+  }
+
+  const referenceId = generateReferenceId();
 
   const formData = new FormData(form);
-  formData.append("cartItems", JSON.stringify(cart));
+  formData.append("cartItems", cart.map(i => `${i.name} - ₱${i.price}`).join(", "));
   formData.append("totalAmount", total);
+  formData.append("referenceId", referenceId);
 
   try {
-    console.log("SENDING REQUEST TO:", url);
-    const res = await fetch(url, {
+    console.log("SENDING REQUEST TO WEB APP");
+    const res = await fetch(form.action, {
       method: "POST",
       body: formData
     });
 
     const text = await res.text();
-    let data;
+    console.log("RAW RESPONSE:", text);
 
+    /* 🧠 Apps Script often returns plain text */
+    let success = true;
     try {
-      data = JSON.parse(text);
+      const json = JSON.parse(text);
+      success = json.result === "success";
     } catch {
-      // Apps Script returned plain text
-      data = { result: "success" };
+      success = true;
     }
 
-    if (data.result === "success") {
-      alert("Order submitted successfully!");
+    if (success) {
       localStorage.removeItem("cart");
       form.reset();
-      window.location.href = "index.html";
+      window.location.href = `confirmation.html?ref=${referenceId}`;
     } else {
-      alert("Failed to submit order: " + (data.message || "Unknown error"));
+      alert("Failed to submit order. Please try again.");
     }
 
   } catch (err) {
-    console.error(err);
+    console.error("FETCH ERROR:", err);
     alert("Failed to submit order. Please check your internet connection.");
   }
 });
