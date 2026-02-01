@@ -7,6 +7,17 @@ const cart = JSON.parse(localStorage.getItem("cart")) || [];
 const orderSummary = document.getElementById("orderSummary");
 const summaryTotal = document.getElementById("summaryTotal");
 const form = document.getElementById("checkoutForm");
+const paymentSelect = document.getElementById("paymentMethod");
+const paymentQR = document.getElementById("paymentQR");
+const paymentQRImg = document.getElementById("paymentQRImg");
+
+const paymentQRMap = {
+  GCASH: "pictures/gcash-qr.jpg",
+  BPI: "pictures/bpi-qr.png",
+  Maya: "pictures/maya-qr.jpg",
+  Maribank: "pictures/maribank-qr.png"
+};
+
 
 /* 🚫 Block checkout if cart is empty */
 if (cart.length === 0) {
@@ -56,6 +67,19 @@ proofFileInput.addEventListener("change", () => {
   };
   reader.readAsDataURL(file);
 });
+
+paymentSelect.addEventListener("change", () => {
+  const method = paymentSelect.value;
+
+  if (paymentQRMap[method]) {
+    paymentQRImg.src = paymentQRMap[method];
+    paymentQR.style.display = "block";
+  } else {
+    paymentQR.style.display = "none";
+    paymentQRImg.src = "";
+  }
+});
+
 
 /* 📤 Final submit handling (NORMAL form submit) */
 form.addEventListener("submit", (event) => {

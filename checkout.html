@@ -106,13 +106,24 @@
       <!-- 8) Payment -->
       <div class="mb-3">
         <label class="fw-bold">Payment Method</label>
-        <select class="form-select" name="paymentMethod" required>
+        <select class="form-select" name="paymentMethod" id="paymentMethod" required>
           <option value="">Select</option>
-          <option>GCASH</option>
+          <option>Gcash</option>
           <option>BPI</option>
           <option>Maya</option>
           <option>Maribank</option>
         </select>
+		
+		<!-- QR Code Preview -->
+		<div id="paymentQR" class="text-center mt-3" style="display:none;">
+		  <img
+			id="paymentQRImg"
+			src=""
+			alt="Payment QR Code"
+			class="img-fluid rounded shadow-sm"
+			style="max-width: 260px;"
+		  />
+		</div>
       </div>
 	  
 	  <!-- 9) Proof of Payment -->
