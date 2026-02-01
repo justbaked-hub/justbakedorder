@@ -1,3 +1,9 @@
+// Reset cart on new browser session
+if (!sessionStorage.getItem("justbakedSession")) {
+  localStorage.removeItem("cart");
+  sessionStorage.setItem("justbakedSession", "true");
+}
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 /* Add to cart with quantity handling */
