@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Order Confirmed</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed - JustBakedMNL</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div class="container py-5 text-center">
-  <h1>🍪 Thank You!</h1>
-  <p>Your order has been received.</p>
-  <a href="index.html" class="btn btn-warning mt-3">Back to Shop</a>
+  <h1 class="mb-3">🍪 Order Confirmed!</h1>
+  <p class="lead">Thank you for ordering from <strong>JustBakedMNL</strong>.</p>
+
+  <div class="form-section mt-4">
+    <h5>Your Reference ID</h5>
+    <h3 class="fw-bold text-warning" id="refId">—</h3>
+    <p class="text-muted mt-2">
+      Please keep this reference number for tracking your order.
+    </p>
+  </div>
+
+  <a href="index.html" class="btn btn-warning mt-4">
+    Continue Shopping
+  </a>
 </div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const ref = params.get("ref");
+
+if (ref) {
+  document.getElementById("refId").textContent = ref;
+}
+</script>
+
 </body>
 </html>
