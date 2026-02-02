@@ -98,11 +98,13 @@ form.addEventListener("submit", (event) => {
 
   phoneHidden.value = "+63" + phoneLocal.value;
   
+  /*
   if (!proofBase64Input.value) {
   alert("Please upload proof of payment.");
   event.preventDefault();
   return;
 }
+*/
 
 	
   /* 🧹 Clear cart before Apps Script redirect */
