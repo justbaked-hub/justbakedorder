@@ -7,19 +7,19 @@ if (!sessionStorage.getItem("justbakedSession")) {
 const PRODUCTS = [
   {
     id: "3cc",
-    name: "3 pcs Chocolate Chip Cookie",
+    name: "3 pcs Chocolate Chip Cookies",
     price: 290,
     img: "pictures/ChocolateChipCookie.jpeg"
   },
   {
     id: "5cc",
-    name: "5 pcs Chocolate Chip Cookie",
+    name: "5 pcs Chocolate Chip Cookies",
     price: 480,
     img: "pictures/ChocolateChipCookie.jpeg"
   },
   {
     id: "10cc",
-    name: "10 pcs Chocolate Chip Cookie",
+    name: "10 pcs Chocolate Chip Cookies",
     price: 985,
     img: "pictures/ChocolateChipCookie.jpeg"
   },

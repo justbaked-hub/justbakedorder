@@ -53,30 +53,34 @@
 
       <!-- 3) Full Name -->
       <div class="mb-3">
-        <label class="fw-bold">Your Name</label>
+        <label class="fw-bold">Full Name</label>
         <input type="text" name="fullName" class="form-control" required>
       </div>
 
       <!-- 4) Address -->
       <div class="mb-3">
-        <label class="fw-bold">Address</label>
+        <label class="fw-bold">Address / Pinnable Address in Google maps</label>
         <input type="text" name="address" class="form-control" required>
       </div>
 
       <!-- 5) Phone -->
-		<div class="phone-group">
-		  <label class="fw-bold">Phone</label>
-		  <span class="country-code">+63</span>
-		  <input
-			type="tel"
-			id="phoneLocal"
-			name="phoneLocal"
-			maxlength="10"
-			pattern="[0-9]{10}"
-			placeholder="9XXXXXXXXX"
-			required
-		  >
+		<div class="mb-3">
+		  <label class="fw-bold d-block mb-1">Phone</label>
+
+		  <div class="phone-group">
+			<span class="country-code">+63</span>
+			<input
+			  type="tel"
+			  id="phoneLocal"
+			  name="phoneLocal"
+			  maxlength="10"
+			  pattern="[0-9]{10}"
+			  placeholder="9XXXXXXXXX"
+			  required
+			>
+		  </div>
 		</div>
+
 
 		<input type="hidden" name="phone" id="phone">
 
@@ -106,6 +110,7 @@
       <!-- 8) Payment -->
       <div class="mb-3">
         <label class="fw-bold">Payment Method</label>
+		<p><i>+ Shipping fee via (Grab, Lalamove, Angkas, etc.) to be shouldered by the buyer and paid directly to the rider</i></p>
         <select class="form-select" name="paymentMethod" id="paymentMethod" required>
           <option value="">Select</option>
           <option>Gcash</option>
@@ -129,7 +134,7 @@
 	  <!-- 9) Proof of Payment -->
 	  <div class="mb-3">
 	  <label class="form-label">
-		Proof of Payment <span class="text-danger">*</span>
+		Proof of Payment <!--<span class="text-danger">*</span>-->
 	  </label>
 	  <input
 		type="file"
